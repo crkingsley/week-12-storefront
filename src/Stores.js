@@ -1,7 +1,7 @@
 import React from 'react'
 
-class Products extends React.Component {
-    constructor () {
+class Stores extends React.Component {
+    constructor() {
         super()
         this.state = {
             response: []
@@ -10,29 +10,28 @@ class Products extends React.Component {
 
     componentDidMount() {
         this.callApi()
-        .then((response) => {
-            debugger
-            this.setState({ response: response.length + ' product items found' })
-        })
-        .catch(err => console.log(err));
+            .then((response) => {
+                this.setState({ response: response.length + ' stores found' })
+            })
+            .catch(err => console.log(err));
     }
-    
+
     callApi = async () => {
-        const response = await fetch('http://localhost:3001/products');
+        const response = await fetch('http://localhost:3001/stores');
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
-        
+
         return body;
     };
 
-    render ()  {
+    render() {
         return (
             <div>
-                <div>Products Place holder</div>
+                <div>Stores Place Holder</div>
                 <div>{this.state.response}</div>
             </div>
         )
     }
 }
 
-export default Products
+export default Stores
