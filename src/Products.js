@@ -1,7 +1,7 @@
 import React from 'react'
 
 class Products extends React.Component {
-    constructor () {
+    constructor() {
         super()
         this.state = {
             response: []
@@ -10,26 +10,44 @@ class Products extends React.Component {
 
     componentDidMount() {
         this.callApi()
-        .then((response) => {
-            debugger
-            this.setState({ response: response.length + ' product items found' })
-        })
-        .catch(err => console.log(err));
+            .then((response) => {
+                debugger
+                this.setState({ response })
+            })
+            .catch(err => console.log(err));
     }
-    
+
     callApi = async () => {
         const response = await fetch('http://localhost:3001/products');
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
-        
+
         return body;
     };
 
-    render ()  {
+    render() {
         return (
             <div>
                 <div>Products Place holder</div>
                 <div>{this.state.response}</div>
+            </div>
+        )
+    }
+
+    render() {
+        const { response } = this.state;
+        const itemsList = []
+
+        for (const [index, item] of response.entries()) {
+            itemsList.push(<li key={index}>{item.title}</li>)
+        }
+
+        return (
+            <div>
+                <h1>{response.length} items found</h1>
+                <ul>
+                    {itemsList}
+                </ul>
             </div>
         )
     }
