@@ -26,15 +26,6 @@ class Products extends React.Component {
     };
 
     render() {
-        return (
-            <div>
-                <div>Products Place holder</div>
-                <div>{this.state.response}</div>
-            </div>
-        )
-    }
-
-    render() {
         const { response } = this.state;
         const itemsList = []
 
